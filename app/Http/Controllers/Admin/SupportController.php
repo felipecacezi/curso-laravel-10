@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Support;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdateSupportRequest;
 
 class SupportController extends Controller
 {
@@ -33,8 +34,9 @@ class SupportController extends Controller
         );
     }
 
-    public function store(Request $request, Support $support)
+    public function store(StoreUpdateSupportRequest $request, Support $support)
     {
+        $request->validated();
         $data = $request->all();
         $data['status'] = 'a';
         $support = $support->create($data);
@@ -50,8 +52,9 @@ class SupportController extends Controller
         return view('admin/supports.edit', compact('support'));
     }
 
-    public function update(Request $request, Support $support, string|int $id)
+    public function update(StoreUpdateSupportRequest $request, Support $support, string|int $id)
     {
+        $request->validated();
         $support = $support->find($id);
         if (!$support) {
             return back();

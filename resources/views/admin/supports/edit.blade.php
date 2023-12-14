@@ -13,3 +13,9 @@
                 placeholder="Descrição">{{ $support->body }}</textarea><br>
     <button type="submit">Enviar</button>
 </form>
+
+@if ($errors->any())
+    @foreach ($errors->all() as $error)
+        {{ $error }} <br>
+    @endforeach
+@endif
